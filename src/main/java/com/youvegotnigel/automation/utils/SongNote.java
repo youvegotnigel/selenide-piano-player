@@ -1,9 +1,9 @@
 package com.youvegotnigel.automation.utils;
 
 public class SongNote {
-    private String keyName;
-    private Integer releaseTime = 0;
-    private Integer loopCount = 0;
+    private final String keyName;
+    private final Integer releaseTime;
+    private final Integer loopCount;
 
     public SongNote(String keyName, Integer releaseTime, Integer loopCount) {
         this.keyName = keyName;

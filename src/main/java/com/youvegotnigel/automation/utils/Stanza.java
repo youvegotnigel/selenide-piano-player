@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Stanza {
 
-    private List<SongNote> notes = new ArrayList<>();
+    private final List<SongNote> NOTES = new ArrayList<>();
     private int loopCount = 1;
 
     public Stanza note(String keyName) {
@@ -13,12 +13,12 @@ public class Stanza {
     }
 
     public Stanza note(String keyName, Integer sleepTime) {
-        this.notes.add(new SongNote(keyName, sleepTime, 1));
+        this.NOTES.add(new SongNote(keyName, sleepTime, 1));
         return this;
     }
 
     public Stanza note(String keyName, Integer sleepTime, Integer loopCount) {
-        this.notes.add(new SongNote(keyName, sleepTime, loopCount));
+        this.NOTES.add(new SongNote(keyName, sleepTime, loopCount));
         return this;
     }
 
@@ -29,7 +29,7 @@ public class Stanza {
 
     public Stanza notes(List<SongNote> notes, Integer loopCount) {
         for(int c=0; c< loopCount;c++) {
-            Collections.addAll(this.notes, notes.toArray(new SongNote[]{}));
+            Collections.addAll(this.NOTES, notes.toArray(new SongNote[]{}));
         }
         return this;
     }
@@ -44,7 +44,7 @@ public class Stanza {
     }
 
     public List<SongNote> getSongNotes() {
-        return notes;
+        return NOTES;
     }
 }
 
