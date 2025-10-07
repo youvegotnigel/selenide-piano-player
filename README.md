@@ -4,7 +4,7 @@ A project that automates playing songs on the **Online Pianist Virtual Piano** u
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 selenide-piano-player/
@@ -32,7 +32,7 @@ selenide-piano-player/
 
 ---
 
-## 🚀 How It Works
+## How It Works
 
 1. **Test Methods** in `PlaySongTest` call the `PianoPlayer` to open the virtual piano URL and play the song.
 2. **`PianoPlayer.initialize()`** launches the browser and navigates to the virtual piano page.
@@ -41,7 +41,7 @@ selenide-piano-player/
 
 ---
 
-## 🧪 Example Test Code
+## Example Test Code
 
 ```java
 @Test
