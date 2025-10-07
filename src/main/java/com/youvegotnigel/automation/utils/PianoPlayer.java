@@ -2,12 +2,8 @@ package com.youvegotnigel.automation.utils;
 
 import com.codeborne.selenide.Configuration;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.interactions.Actions;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,11 +16,10 @@ public class PianoPlayer {
 
     //private WebDriver driver;
     private WebElement canvas;
-    private static Map<String, KeyInfo> keyboardKeyInfo;
-    private static int canvasStartPoint = -678, keyWidth = 22;
+    private static final Map<String, KeyInfo> KEYBOARD_KEY_INFO;
 
     static {
-        keyboardKeyInfo = new HashMap<String, KeyInfo>() {{
+        KEYBOARD_KEY_INFO = new HashMap<String, KeyInfo>() {{
             put("a0", new KeyInfo(23, "c"));
             put("a0#", new KeyInfo(34, "f"));
             put("b0", new KeyInfo(25, "v"));
@@ -89,7 +84,7 @@ public class PianoPlayer {
                 for (SongNote note : stanza.getSongNotes()) {
                     for (int j = 0; j < note.getLoopCount(); j++) {
                         System.out.println("Current note is " + note.getKeyName());
-                        keyPress(keyboardKeyInfo.get(note.getKeyName()), note.getReleaseTime());
+                        keyPress(KEYBOARD_KEY_INFO.get(note.getKeyName()), note.getReleaseTime());
                     }
                 }
             }
@@ -98,6 +93,8 @@ public class PianoPlayer {
 
     private void keyPress(KeyInfo keyInfo, Integer keyReleaseDelay) {
         int y = 20;
+        int canvasStartPoint = -678;
+        int keyWidth = 22;
         int x = canvasStartPoint + (keyInfo.getPosition() * keyWidth);
 
         // Move to element with offset and press
