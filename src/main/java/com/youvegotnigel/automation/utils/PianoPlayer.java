@@ -1,8 +1,7 @@
 package com.youvegotnigel.automation.utils;
 
 import com.codeborne.selenide.Configuration;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.HashMap;
@@ -14,8 +13,9 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class PianoPlayer {
 
-    //private WebDriver driver;
-    private WebElement canvas;
+    private static final String BASE_URL = "https://www.onlinepianist.com";
+    private static final SelenideElement CANVAS = $("canvas");
+
     private static final Map<String, KeyInfo> KEYBOARD_KEY_INFO;
 
     static {
@@ -62,16 +62,13 @@ public class PianoPlayer {
         options.addArguments("--blink-settings=imagesEnabled=false"); // if ads are images
 
         //Configuration.browserCapabilities = options;
-
         Configuration.browser = "chrome";
         Configuration.pageLoadTimeout = 60 * 1000L;
         Configuration.timeout = 30 * 1000L;
         Configuration.browserSize = "1350x900";
+        Configuration.baseUrl = BASE_URL;
 
-        open("https://www.onlinepianist.com/virtual-piano");
-
-        //sleep(10000);
-        canvas = $(By.tagName("canvas"));
+        open("/virtual-piano");
 
         java.util.logging.Logger.getLogger("org.openqa").setLevel(Level.OFF);
         return this;
@@ -98,14 +95,14 @@ public class PianoPlayer {
         int x = canvasStartPoint + (keyInfo.getPosition() * keyWidth);
 
         // Move to element with offset and press
-        actions().moveToElement(canvas, x, y).clickAndHold().perform();
+        actions().moveToElement(CANVAS, x, y).clickAndHold().perform();
 
         if (keyReleaseDelay > 0) {
             sleep(keyReleaseDelay);
         }
 
         // Release click
-        actions().moveToElement(canvas, x, y).release().perform();
+        actions().moveToElement(CANVAS, x, y).release().perform();
     }
 
 }
